@@ -8,10 +8,11 @@ export interface IUser extends Document {
     status: boolean;
     createDate: Date;
     deleteDate: Date;
-    role: string;
+    roles: string[]; // Cambiado de role: string a roles: string[]
     firstName: string;
     lastName: string;
 }
+
 const userSchema = new Schema<IUser>({
     username: {type: String, required: true, unique: true},
     email: {type: String, required: true, unique: true},
@@ -19,7 +20,7 @@ const userSchema = new Schema<IUser>({
     status: {type: Boolean, default: true},
     createDate: {type: Date, default: Date.now},
     deleteDate: {type: Date},
-    role: {type: String, required: true},
+    roles: [{type: String, required: true}], // Cambiado de role a roles
     firstName: {type: String, required: true},
     lastName: {type: String, required: true}
 });

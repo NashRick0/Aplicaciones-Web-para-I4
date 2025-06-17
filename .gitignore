@@ -1,8 +1,21 @@
-/node_modules
+# Dependencias
+node_modules/
 
-git init
-git remote add origin
-git add .
-git commit -m "Initial commit"
-git branch -M develop //crear rama
-git push -u origin develop //subir rama
+# Salida TypeScript
+backend/dist/
+
+# Archivos de entorno
+.env
+.env.*
+
+# Logs
+*.log
+
+# Sistema operativo / IDE
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Otros
+coverage/

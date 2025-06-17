@@ -14,5 +14,4 @@ router.post("/users", saveUser);
 router.put("/update-user/:userId", updateUser);
 router.delete("/delete-user/:userId", deleteUser);
 
-
 export default router;

@@ -97,52 +97,39 @@ export const getUserByUsername = async (req: Request, res: Response) => {
     }
 };
 
-export const saveUser = async (req:Request, res:Response) => {
-    const { firstName, lastName, username, email, password, role } = req.body;
-
+// Crear usuario
+export const saveUser = async (req: Request, res: Response) => {
     try {
-        const hashedPassword = await bcrypt.hash(password, 10);
-
+        const { username, email, password, roles, firstName, lastName } = req.body;
         const newUser = new User({
-            firstName,
-            lastName,
             username,
-            password: hashedPassword,
-            role,
-            email
+            email,
+            password,
+            roles, // Ahora es un arreglo
+            firstName,
+            lastName
         });
-
-        const user = await newUser.save();
-
-        return res.json({ user });
+        await newUser.save();
+        res.status(201).json({ message: 'User created successfully', user: newUser });
     } catch (error) {
-        return res.status(500).json({ message: "Error saving user" });
+        res.status(500).json({ message: 'Error creating user', error });
     }
-}
+};
 
+// Actualizar usuario
 export const updateUser = async (req: Request, res: Response) => {
-    const { userId } = req.params;
-    const { firstName, lastName, username, email, password, role } = req.body;
-
-    const user = await User.findById(userId);
-    if (!user) {
-        return res.status(404).json({ message: "User not found" });
+    try {
+        const { userId } = req.params;
+        const updateData = req.body;
+        const updatedUser = await User.findByIdAndUpdate(userId, updateData, { new: true });
+        if (!updatedUser) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+        res.status(200).json({ message: 'User updated', user: updatedUser });
+    } catch (error) {
+        res.status(500).json({ message: 'Error updating user', error });
     }
-    const userEmail = await User.findOne({email});
-    if (userEmail && userEmail.id!== user.id) {
-        return res.status(426).json({ message: "Email already exists" });
-    }
-
-    user.password = password!=null ? await bcrypt.hash(password, 10) : user.password;
-    user.email = email!=null ? email : user.email;
-    user.role = role!=null ? role : user.role;
-    user.firstName = firstName!=null ? firstName : user.firstName;
-    user.lastName = lastName!=null ? lastName : user.lastName;
-    user.username = username!=null ? username : user.username;
-
-    const updatedUser = await user.save();
-    return res.json({ user: updatedUser });
-}
+};
 
 export const deleteUser = async (req: Request, res: Response) => {
     const { userId } = req.params;
