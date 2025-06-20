@@ -9,11 +9,6 @@
 - [Características](#características)
 - [Tecnologías Utilizadas](#tecnologías-utilizadas)
 - [Instalación](#instalación)
-- [Estructura del Proyecto](#estructura-del-proyecto)
-- [Uso](#uso)
-- [Contribuciones](#contribuciones)
-- [Licencia](#licencia)
-- [Autores](#autores)
 
 ---
 
@@ -28,10 +23,9 @@
 
 ## 🛠️ Tecnologías Utilizadas
 
-- **Frontend:** (Completa si tienes frontend)
+- **Frontend:** React, Vite
 - **Backend:** Node.js, Express, TypeScript
-- **Base de Datos:** (Indica la base de datos utilizada, ej. MySQL, MongoDB)
-- **Otros:** (Agrega otras tecnologías relevantes)
+- **Base de Datos:** MongoDB
 
 ---
 
